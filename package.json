@@ -1,0 +1,27 @@
+{
+  "name": "email-automation-tool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@types/passport": "^1.0.17",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@googleapis/gmail": "^12.0.0",
+    "bullmq": "^5.25.0",
+    "dotenv": "^16.4.5",
+    "node-outlook": "^1.1.8",
+    "nodemailer": "^6.9.16",
+    "openai": "^4.71.0",
+    "passport": "^0.7.0",
+    "passport-oauth": "^1.0.0"
+  }
+}
