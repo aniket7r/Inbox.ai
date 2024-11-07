@@ -2,6 +2,14 @@
 
 import dotenv from 'dotenv';
 dotenv.config();
+import { RedisOptions } from 'ioredis';
+
+export const redisConfig: RedisOptions = {
+  maxRetriesPerRequest: null,
+  host: '127.0.0.1',  // or your Redis host
+  port: 6379          // or your Redis port
+};
+
 
 export const config = {
   google: {

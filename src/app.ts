@@ -62,6 +62,9 @@ import { getGmailAuthUrl, getGmailToken } from './auth/gmailAuth';
 // import { getOutlookAuthUrl, getOutlookToken } from './auth/outlookAuth';
 import { fetchUnreadEmailsFromGmail } from './controllers/gmailEmailFetcher';
 import { fetchUnreadEmailsFromOutlook } from './controllers/outlookEmailFetcher';
+import './scheduler/emailQueue';
+import { storeAccessToken } from './middleware/middleware';
+
 
 const app = express();
 
@@ -69,17 +72,29 @@ const app = express();
 app.get('/auth/google', (req, res) => {
   const url = getGmailAuthUrl();
   res.redirect(url);
+  console.log('url', url);
 });
 
 app.get('/auth/google/callback', async (req, res) => {
-  const { code } = req.query;
-  if (code) {
-    const tokens = await getGmailToken(code.toString());
-    res.json(tokens);
-  } else {
-    res.status(400).send('No code found in request.');
-  }
-});
+  console.log('req', req);
+    const { code } = req.query;
+    if (code) {
+      const tokens = await getGmailToken(code.toString());
+      const accessToken = tokens.access_token;
+  
+      if (accessToken) {
+        storeAccessToken(accessToken);
+        console.log('accessToken checked at app.ts ', accessToken);
+        // Redirect to the Gmail emails route with the access token
+        res.redirect(`http://localhost:3000/emails/gmail?access_token=${accessToken}`);
+        // res.json({ message: 'Access token stored securely.' });
+      } else {
+        res.status(400).send('Failed to retrieve access token.');
+      }
+    } else {
+      res.status(400).send('No code found in request.');
+    }
+  });
 
 // Outlook OAuth Routes
 // app.get('/auth/outlook', (req, res) => {
@@ -115,7 +130,7 @@ app.get('/emails/gmail', async (req: Request, res: Response): Promise<void> => {
     }
   });
 
-  
+
 // // Route to fetch unread emails from Outlook
 // app.get('/emails/outlook', async (req: Request, res: Response): Promise<void> => {
 //     const { access_token } = req.query;
