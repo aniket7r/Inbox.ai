@@ -3,25 +3,36 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/app.js",
+    "dev": "ts-node-dev src/app.ts",
+    "build": "tsc",
+    "lint": "eslint 'src/**/*.ts'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A tool to parse, label, and respond to emails from Gmail and Outlook using AI and OAuth2.",
   "devDependencies": {
+    "@types/express-session": "^1.18.0",
     "@types/node": "^22.9.0",
     "@types/passport": "^1.0.17",
+    "@types/passport-google-oauth20": "^2.0.16",
     "typescript": "^5.6.3"
   },
   "dependencies": {
     "@googleapis/gmail": "^12.0.0",
     "bullmq": "^5.25.0",
     "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "expresss": "^0.0.0",
+    "googleapis": "^144.0.0",
     "node-outlook": "^1.1.8",
     "nodemailer": "^6.9.16",
     "openai": "^4.71.0",
     "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-oauth": "^1.0.0"
   }
 }
