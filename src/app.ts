@@ -57,9 +57,11 @@
 
 
 
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { getGmailAuthUrl, getGmailToken } from './auth/gmailAuth';
 // import { getOutlookAuthUrl, getOutlookToken } from './auth/outlookAuth';
+import { fetchUnreadEmailsFromGmail } from './controllers/gmailEmailFetcher';
+import { fetchUnreadEmailsFromOutlook } from './controllers/outlookEmailFetcher';
 
 const app = express();
 
@@ -94,6 +96,44 @@ app.get('/auth/google/callback', async (req, res) => {
 //     res.status(400).send('No code found in request.');
 //   }
 // });
+
+
+
+// Route to fetch unread emails from Gmail
+app.get('/emails/gmail', async (req: Request, res: Response): Promise<void> => {
+    const { access_token } = req.query;
+    if (!access_token) {
+      res.status(400).send('Access token is required');
+      return;
+    }
+  
+    try {
+      const emails = await fetchUnreadEmailsFromGmail(access_token.toString());
+      res.json(emails);
+    } catch (error) {
+      res.status(500).send('Error fetching emails from Gmail');
+    }
+  });
+
+  
+// // Route to fetch unread emails from Outlook
+// app.get('/emails/outlook', async (req: Request, res: Response): Promise<void> => {
+//     const { access_token } = req.query;
+//     if (!access_token) {
+//       res.status(400).send('Access token is required');
+//       return;
+//     }
+  
+//     try {
+//       const emails = await fetchUnreadEmailsFromOutlook(access_token.toString());
+//       res.json(emails);
+//     } catch (error) {
+//       res.status(500).send('Error fetching emails from Outlook');
+//     }
+//   });
+  
+
+
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
