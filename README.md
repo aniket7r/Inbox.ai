@@ -8,7 +8,7 @@ Features
 
 -   OAuth2 Authentication for Gmail and Outlook
 -   Email Fetching and Categorization (Interested, Not Interested, More Information)
--   Contextual Reply Generation using OpenAI
+-   Contextual Reply Generation using Gemini GenAI
 -   Scheduled tasks using BullMQ
 -   Built with TypeScript for type safety and maintainability
 
