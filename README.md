@@ -181,6 +181,3 @@ bash
 -   **Redis Issues**: Make sure Redis is installed and running. Check the Redis URL in `.env`.
 -   **Token Expiry**: Gmail and Outlook access tokens may expire; ensure token refresh logic is implemented.
 
-### Contributing
-
-Feel free to fork this repository and make changes. Pull requests are welcome.
