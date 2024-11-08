@@ -47,9 +47,9 @@ Ensure you have the following installed:
 3.  **Environment Configuration**
 
     Create a `.env` file in the root directory and configure your environment variables as follows:
-
+```
     env
-
+    
     `PORT=3000
     REDIS_URL=redis://localhost:6379
 
@@ -66,7 +66,9 @@ Ensure you have the following installed:
     # OpenAI
     OPENAI_API_KEY=<your-openai-api-key>`
 
-4.  **Build the Project**
+```
+
+5.  **Build the Project**
 
     Compile the TypeScript code to JavaScript:
 
@@ -74,7 +76,7 @@ Ensure you have the following installed:
 
     `npm run build`
 
-5.  **Run the Server**
+6.  **Run the Server**
 
     Start the server with:
 
@@ -82,7 +84,7 @@ Ensure you have the following installed:
 
     `npm start`
 
-6.  **Redis Server**
+7.  **Redis Server**
 
     Ensure that Redis is running for BullMQ to work. Start Redis locally by running:
 
