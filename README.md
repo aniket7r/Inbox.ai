@@ -8,8 +8,9 @@ Features
 
 -   OAuth2 Authentication for Gmail and Outlook
 -   Email Fetching and Categorization (Interested, Not Interested, More Information)
--   Contextual Reply Generation using Gemini GenAI
+-   Contextual Reply Generation using OpenAI
 -   Scheduled tasks using BullMQ
+-   Secure handling of access keys using custom encryption middleware
 -   Built with TypeScript for type safety and maintainability
 
 Getting Started
@@ -111,6 +112,14 @@ Ensure you have the following installed:
 
     BullMQ handles the scheduling of email checks and response tasks. You can adjust the frequency and behavior of these tasks within the codebase.
 
+
+### Custom Middleware: Encryption of Access Keys
+
+To secure sensitive information such as `access_key` and other authentication tokens, a custom middleware (`middleware/middleware.ts`) has been added. This middleware ensures that these keys are encrypted using crypto before they are stored or processed. The encryption helps protect confidential data from unauthorized access, maintaining a secure environment throughout the application.
+
+-   The middleware is automatically applied to requests that involve storing or retrieving access keys, ensuring that sensitive information is never exposed or stored in plain text.
+
+
 ### Project Structure
 
 bash
@@ -118,21 +127,45 @@ bash
 ```email-automation-tool/
 ├── src/
 │   ├── auth/
-│   │   ├── gmailAuth.ts          # Gmail OAuth setup and token generation
-│   │   └── outlookAuth.ts        # Outlook OAuth setup and token generation
+│   │   ├── gmailAuth.ts             # Gmail OAuth setup and token generation
+│   │   └── outlookAuth.ts           # Outlook OAuth setup and token generation
+│   │
 │   ├── controllers/
-│   │   └── emailProcessor.ts     # Main controller for email parsing and response
-│   ├── config/
-│   │   └── config.ts             # Configuration settings
-│   ├── tasks/
-│   │   └── scheduler.ts          # BullMQ task scheduler setup
+│   │   ├── emailProcessor.ts        # Main controller for email parsing and response
+│   │   ├── gmailEmailFetcher.ts     # Function to fetch unread emails from Gmail
+│   │   ├── outlookEmailFetcher.ts   # Function to fetch unread emails from Outlook
+│   │   └── labelAssigner.ts         # Assigns labels to emails based on specified criteria
+│   │
+│   ├── gemini/
+│   │   └── geminiHandler.ts         # Handler for Gemini API interactions
+│   │
+│   ├── middleware/
+│   │   └── middleware.ts            # Middleware for access control and encryption setup
+│   │                                # (ensures `access_key` is secured with crypto encryption)
+│   │
+│   ├── openai/
+│   │   └── openaiHandler.ts          # Handler for Gemini API interactions
+│   │
+│   ├── responses/
+│   │   ├── emailSender.ts           # Sends email responses through SMTP
+│   │   └── responseTemplates.ts     # Predefined templates for generating email responses
+│   │
+│   ├── scheduler/
+│   │   └── emailQueue.ts            # Manages email scheduling and queue using BullMQ
+│   │
 │   ├── utils/
-│   │   └── openaiClient.ts       # OpenAI integration for contextual replies
-│   └── app.ts                    # Main server and middleware setup
-├── .env                          # Environment variables
-├── .gitignore                    # Git ignore file
-├── tsconfig.json                 # TypeScript configuration
-└── README.md                     # Project documentation
+│   │   ├── app.ts                   # Main server and middleware setup
+│   │   └── config.ts                # Central configuration settings for the app
+│   │
+│   └── testLabeling.ts              # Test file for validating email labeling logic
+│
+├── .env                             # Environment variables for configuration
+├── .gitignore                       # Specifies files and folders to ignore in Git
+├── package-lock.json                # Dependency tree lock file for npm
+├── package.json                     # Project metadata and dependencies
+├── README.md                        # Project documentation with setup instructions
+└── tsconfig.json                    # TypeScript configuration settings
+
 ```
 
 ### Implementation Choices
