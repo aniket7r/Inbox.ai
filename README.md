@@ -144,7 +144,7 @@ bash
 │   │                                # (ensures `access_key` is secured with crypto encryption)
 │   │
 │   ├── openai/
-│   │   └── openaiHandler.ts          # Handler for Gemini API interactions
+│   │   └── openaiHandler.ts          # Handler for Openai API interactions
 │   │
 │   ├── responses/
 │   │   ├── emailSender.ts           # Sends email responses through SMTP
