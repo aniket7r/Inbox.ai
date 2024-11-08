@@ -53,6 +53,8 @@ Ensure you have the following installed:
     `PORT=3000
     REDIS_URL=redis://localhost:6379
 
+    ENCRYPTION_KEY=loveReachInbox
+
     # Google OAuth
     GOOGLE_CLIENT_ID=<your-google-client-id>
     GOOGLE_CLIENT_SECRET=<your-google-client-secret>
@@ -63,8 +65,11 @@ Ensure you have the following installed:
     OUTLOOK_CLIENT_SECRET=<your-outlook-client-secret>
     OUTLOOK_REDIRECT_URI=http://localhost:3000/auth/outlook/callback
 
-    # OpenAI
-    OPENAI_API_KEY=<your-openai-api-key>`
+    # Gemini GenAI
+    GEMINI_API_KEY=<your-gemini-api-key>
+    GEMINI_API_URL=<your-gemini-api-url>
+    SMTP_MAIL=<your-smtp-mail-id>
+    SMTP_PASSWORD=<your-smtp-password>`
 
 ```
 
