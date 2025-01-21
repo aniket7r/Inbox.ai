@@ -1,4 +1,4 @@
-Email Automation Tool
+Email Automation Tool With Powers of GenAI 
 =====================
 
 This project is an Email Automation Tool built to read, categorize, and respond to emails from Gmail and Outlook accounts using OAuth2 authentication, Gemini for natural language processing, and BullMQ for task scheduling. The tool parses and labels emails based on their content and automatically sends context-based replies.
